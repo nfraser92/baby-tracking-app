@@ -1,4 +1,4 @@
-﻿@model Capstone.Models.Toy
+﻿@model Capstone.Models.ViewModels.Toys.ToyUploadPictureViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,30 +10,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form method="post" enctype="multipart/form-data" asp-controller="Toys" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ToyTypeId" class="control-label"></label>
-                <select asp-for="ToyTypeId" class ="form-control" asp-items="ViewBag.ToyTypeId"></select>
+                <label asp-for="Toy.ToyTypeId" class="control-label"></label>
+                <select asp-for="Toy.ToyTypeId" class="form-control" asp-items="ViewBag.ToyTypeId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <label asp-for="Toy.Color" class="control-label"></label>
+                <input asp-for="Toy.Color" class="form-control" />
+                <span asp-validation-for="Toy.Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
+                <label asp-for="Toy.Description" class="control-label"></label>
+                <input asp-for="Toy.Description" class="form-control" />
+                <span asp-validation-for="Toy.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
