@@ -45,6 +45,14 @@ namespace Capstone.Data
             var passwordHash4 = new PasswordHasher<ApplicationUser>();
             niall.PasswordHash = passwordHash4.HashPassword(niall, "Niall1*");
             modelBuilder.Entity<ApplicationUser>().HasData(niall);
+
+            modelBuilder.Entity<BookType>().HasData(
+                new BookType()
+                {
+                    BookTypeId = 1,
+                    UserId = niall.Id,
+                    Description = "Musical/Sounds",
+                });
         }
     }
 }

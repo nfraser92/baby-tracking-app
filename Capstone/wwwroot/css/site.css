@@ -34,6 +34,17 @@ button.accept-policy {
   line-height: inherit;
 }
 
+imageDisplay {
+    height: 75px;
+    width: 75px;
+}
+
+img.imageDisplay {
+    height: 75px;
+    width: 75px;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
