@@ -37,19 +37,6 @@ namespace Capstone.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            // Example
-            [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [Required]
-            [Display(Name = "Street Address")]
-            public string StreetAddress { get; set; }
-
             [Required]
             [EmailAddress]
             public string Email { get; set; }
