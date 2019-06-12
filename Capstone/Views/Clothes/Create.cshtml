@@ -10,11 +10,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form method="post" enctype="multipart/form-data" asp-controller="Clothes" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Clothes.ClothesTypeId" class="control-label"></label>
-                <select asp-for="Clothes.ClothesTypeId" class ="form-control" asp-items="ViewBag.ClothesTypeId"></select>
+                <select asp-for="Clothes.ClothesTypeId" class="form-control" asp-items="ViewBag.ClothesTypeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Clothes.Size" class="control-label"></label>
@@ -25,6 +25,11 @@
                 <label asp-for="Clothes.Color" class="control-label"></label>
                 <input asp-for="Clothes.Color" class="form-control" />
                 <span asp-validation-for="Clothes.Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clothes.Description" class="control-label"></label>
+                <input asp-for="Clothes.Description" class="form-control" />
+                <span asp-validation-for="Clothes.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
