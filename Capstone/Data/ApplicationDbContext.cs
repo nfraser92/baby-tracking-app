@@ -50,9 +50,98 @@ namespace Capstone.Data
                 new BookType()
                 {
                     BookTypeId = 1,
-                    UserId = niall.Id,
-                    Description = "Musical/Sounds",
-                });
+                    Description = "Musical/Sounds/Nursery Rhymes",
+                },
+                new BookType()
+                {
+                    BookTypeId = 2,
+                    Description = "Nature",
+                },
+                 new BookType()
+                 {
+                     BookTypeId = 3,
+                     Description = "Activity Books",
+                 },
+                  new BookType()
+                  {
+                      BookTypeId = 4,
+                      Description = "Board Books",
+                  },
+                   new BookType()
+                   {
+                       BookTypeId = 5,
+                       Description = "Learning",
+                   }
+                );
+
+            modelBuilder.Entity<ToyType>().HasData(
+               new ToyType()
+               {
+                   ToyTypeId = 1,
+                   Description = "Vehicles"
+               },
+               new ToyType()
+               {
+                   ToyTypeId = 2,
+                   Description = "Puzzles/Jigsaws"
+               },
+               new ToyType()
+               {
+                   ToyTypeId = 3,
+                   Description = "Lego/Blocks"
+               },
+               new ToyType()
+               {
+                   ToyTypeId = 4,
+                   Description = "Outdoor"
+               }
+
+               ); modelBuilder.Entity<ClothesType>().HasData(
+               new ClothesType()
+               {
+                   ClothesTypeId = 1,
+                   Description = "Shirts"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 2,
+                   Description = "Pants"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 3,
+                   Description = "Shorts"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 5,
+                   Description = "Socks"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 6,
+                   Description = "Shoes"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 7,
+                   Description = "Hats"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 8,
+                   Description = "Jackets"
+               },
+               new ClothesType()
+               {
+                   ClothesTypeId = 9,
+                   Description = "Sweaters"
+               }
+               );
+
+
         }
+
+        public DbSet<Capstone.Models.GiftIdeas> GiftIdeas { get; set; }
     }
 }
