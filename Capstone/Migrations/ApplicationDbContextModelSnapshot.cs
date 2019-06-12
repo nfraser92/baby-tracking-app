@@ -62,12 +62,7 @@ namespace Capstone.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
                     b.HasKey("BookTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("BookType");
 
@@ -75,8 +70,27 @@ namespace Capstone.Migrations
                         new
                         {
                             BookTypeId = 1,
-                            Description = "Musical/Sounds",
-                            UserId = "4f555f8c-d5db-43b5-836c-ffffffffffff"
+                            Description = "Musical/Sounds/Nursery Rhymes"
+                        },
+                        new
+                        {
+                            BookTypeId = 2,
+                            Description = "Nature"
+                        },
+                        new
+                        {
+                            BookTypeId = 3,
+                            Description = "Activity Books"
+                        },
+                        new
+                        {
+                            BookTypeId = 4,
+                            Description = "Board Books"
+                        },
+                        new
+                        {
+                            BookTypeId = 5,
+                            Description = "Learning"
                         });
                 });
 
@@ -91,6 +105,10 @@ namespace Capstone.Migrations
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<string>("ImagePath");
 
@@ -124,6 +142,81 @@ namespace Capstone.Migrations
                     b.HasKey("ClothesTypeId");
 
                     b.ToTable("ClothesType");
+
+                    b.HasData(
+                        new
+                        {
+                            ClothesTypeId = 1,
+                            Description = "Shirts"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 2,
+                            Description = "Pants"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 3,
+                            Description = "Shorts"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 5,
+                            Description = "Socks"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 6,
+                            Description = "Shoes"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 7,
+                            Description = "Hats"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 8,
+                            Description = "Jackets"
+                        },
+                        new
+                        {
+                            ClothesTypeId = 9,
+                            Description = "Sweaters"
+                        });
+                });
+
+            modelBuilder.Entity("Capstone.Models.GiftIdeas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookTypeId");
+
+                    b.Property<int?>("ClothesTypeId");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<int?>("ToyTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookTypeId");
+
+                    b.HasIndex("ClothesTypeId");
+
+                    b.HasIndex("ToyTypeId");
+
+                    b.ToTable("GiftIdeas");
                 });
 
             modelBuilder.Entity("Capstone.Models.Toy", b =>
@@ -166,6 +259,28 @@ namespace Capstone.Migrations
                     b.HasKey("ToyTypeId");
 
                     b.ToTable("ToyType");
+
+                    b.HasData(
+                        new
+                        {
+                            ToyTypeId = 1,
+                            Description = "Vehicles"
+                        },
+                        new
+                        {
+                            ToyTypeId = 2,
+                            Description = "Puzzles/Jigsaws"
+                        },
+                        new
+                        {
+                            ToyTypeId = 3,
+                            Description = "Lego/Blocks"
+                        },
+                        new
+                        {
+                            ToyTypeId = 4,
+                            Description = "Outdoor"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -357,13 +472,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "186eb298-8621-4b6e-9717-eea8dd977fb4",
+                            ConcurrencyStamp = "94626ba8-eab1-47b6-8d25-f340497b1d51",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDx0KDAcF7VQ6NkXLuuxc28IYMCXQOPbzA1hq9gh88D+flic0z0uVa+g31qhQW1VlQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN/aG0ElGNeN8Cm13skvsgSPfRJ9yXfTqOD80Bke5+fUtJaGC1L5qbLt7hlyJ3d2ow==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -386,14 +501,6 @@ namespace Capstone.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Capstone.Models.BookType", b =>
-                {
-                    b.HasOne("Capstone.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Capstone.Models.Clothes", b =>
                 {
                     b.HasOne("Capstone.Models.ClothesType", "ClothesType")
@@ -404,6 +511,21 @@ namespace Capstone.Migrations
                     b.HasOne("Capstone.Models.ApplicationUser", "User")
                         .WithMany("Clothes")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Capstone.Models.GiftIdeas", b =>
+                {
+                    b.HasOne("Capstone.Models.BookType", "BookType")
+                        .WithMany()
+                        .HasForeignKey("BookTypeId");
+
+                    b.HasOne("Capstone.Models.ClothesType", "ClothesType")
+                        .WithMany()
+                        .HasForeignKey("ClothesTypeId");
+
+                    b.HasOne("Capstone.Models.ToyType", "ToyType")
+                        .WithMany()
+                        .HasForeignKey("ToyTypeId");
                 });
 
             modelBuilder.Entity("Capstone.Models.Toy", b =>

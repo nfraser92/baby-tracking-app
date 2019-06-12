@@ -17,7 +17,7 @@ namespace Capstone.Models
 
         public BookType BookType { get; set; }
 
-        public int? ClothingTypeId {get; set;}
+        public int? ClothesTypeId { get; set; }
         public int? BookTypeId { get; set; }
         public int? ToyTypeId { get; set; }
 

@@ -15,7 +15,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <Folder Include="Models\ViewModels\Toys\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

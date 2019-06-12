@@ -15,13 +15,6 @@ namespace Capstone.Models
         [Required]
         [StringLength(255)]
         public string Description { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
-
-        [Required]
-        public ApplicationUser User { get; set; }
-
         public virtual ICollection<Book> Books { get; set; }
     }
 }

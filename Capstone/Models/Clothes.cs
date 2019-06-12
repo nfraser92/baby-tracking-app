@@ -22,6 +22,10 @@ namespace Capstone.Models
         [StringLength(20)]
         public string Color { get; set; }
 
+        [Required]
+        [StringLength(255)]
+        public string Description { get; set; }
+
         public string ImagePath { get; set; }
 
         public ApplicationUser User { get; set; }
