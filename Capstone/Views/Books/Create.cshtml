@@ -1,4 +1,4 @@
-﻿@model Capstone.Models.Book
+﻿@model Capstone.Models.ViewModels.Books.BookUploadPictureViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,40 +10,36 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form method="post" enctype="multipart/form-data" asp-controller="Books" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BookTypeId" class="control-label"></label>
-                <select asp-for="BookTypeId" class="form-control" asp-items="ViewBag.BookTypeId"></select>
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Book.BookTypeId" class="control-label"></label>
+                <select asp-for="Book.BookTypeId" class="form-control" asp-items="ViewBag.BookTypeId"><option value="">Choose a Categoty</option></select>
+                <span asp-validation-for="Book.BookTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Book.Title" class="control-label"></label>
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" type="file"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                <label asp-for="Book.Author" class="control-label"></label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
+                <label asp-for="Book.Quantity" class="control-label"></label>
+                <input asp-for="Book.Quantity" class="form-control" />
+                <span asp-validation-for="Book.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsOutgrown" /> @Html.DisplayNameFor(model => model.IsOutgrown)
+                    <input class="form-check-input" asp-for="Book.IsOutgrown" /> @Html.DisplayNameFor(model => model.Book.IsOutgrown)
                 </label>
             </div>
             <div class="form-group">
