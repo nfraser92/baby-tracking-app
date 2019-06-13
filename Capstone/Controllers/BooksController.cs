@@ -28,8 +28,35 @@ namespace Capstone.Controllers
             _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string _sortDirection, string _orderBy)
         {
+            string currentSort = "";
+
+            if (_sortDirection == null && _orderBy != null)
+            {
+                ViewData["sortDirection"] = "desc";
+                currentSort = "asc";
+
+            }
+            else if (_sortDirection == null && _orderBy == null)
+            {
+                _orderBy = "Title";
+                currentSort = "asc";
+                ViewData["sortDirection"] = "";
+
+            }
+            else if (_sortDirection == "asc")
+            {
+                ViewData["sortDirection"] = "desc";
+                currentSort = "asc";
+
+            }
+            else if (_sortDirection == "desc")
+            {
+                ViewData["sortDirection"] = "asc";
+                currentSort = "desc";
+            }
+
             var applicationDbContext = _context.Book.Include(b => b.BookType).Include(b => b.User);
             return View(await applicationDbContext.ToListAsync());
         }
