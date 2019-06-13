@@ -24,7 +24,7 @@ namespace Capstone.Models
         [Required]
         public string Description { get; set; }
 
-        [Required]
+        
         [Display(Name ="Item Image")]
         public string ImagePath { get; set; }
 

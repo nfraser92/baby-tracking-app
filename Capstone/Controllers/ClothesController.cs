@@ -72,7 +72,7 @@ namespace Capstone.Controllers
         {
             ModelState.Remove("UserId");
 
-            var user =await  GetCurrentUserAsync();
+            var user = await  GetCurrentUserAsync();
             if (ModelState.IsValid)
             {
                 model.Clothes.User = user;

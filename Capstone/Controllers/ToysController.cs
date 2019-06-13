@@ -7,17 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Capstone.Data;
 using Capstone.Models;
+using Capstone.Models.ViewModels.Toys;
+using Microsoft.AspNetCore.Identity;
+using System.IO;
 
 namespace Capstone.Controllers
 {
     public class ToysController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ToysController(ApplicationDbContext context)
+        public ToysController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() =>
+            _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Toys
         public async Task<IActionResult> Index()
@@ -46,30 +53,58 @@ namespace Capstone.Controllers
             return View(toy);
         }
 
-        // GET: Toys/Create
+        // GET: Books/Create
         public IActionResult Create()
         {
+            ToyUploadPictureViewModel model = new ToyUploadPictureViewModel();
+            model.Toy = new Toy();
             ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description");
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            return View();
+            return View(model);
         }
 
-        // POST: Toys/Create
+        // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ToyId,ToyTypeId,UserId,Color,Description,ImagePath")] Toy toy)
+        public async Task<IActionResult> Create(ToyUploadPictureViewModel model)
         {
+            // Remove user from model validation as it is not submitted in the form.
+            // Validation will fail is this is not in here
+            ModelState.Remove("UserId");
+
+
+            var user = await GetCurrentUserAsync();
+            //If you want to check errors in model state use the code below:
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(toy);
+                model.Toy.User = user;
+                model.Toy.UserId = user.Id;
+
+                if (model.ImageFile != null)
+                {
+                    var fileName = Path.GetFileName(model.ImageFile.FileName);
+                    Path.GetTempFileName();
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                    // var filePath = Path.GetTempFileName();
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                        // validate file, then move to CDN or public folder
+                    }
+                    model.Toy.ImagePath = model.ImageFile.FileName;
+                }
+                _context.Add(model.Toy); 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description", toy.ToyTypeId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", toy.UserId);
-            return View(toy);
+            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description", model.Toy.ToyTypeId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", model.Toy.UserId);
+            return View(model);
         }
 
         // GET: Toys/Edit/5
