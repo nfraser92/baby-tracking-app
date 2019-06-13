@@ -98,7 +98,7 @@ namespace Capstone.Controllers
                     }
                     model.Toy.ImagePath = model.ImageFile.FileName;
                 }
-                _context.Add(model.Toy);
+                _context.Add(model.Toy); 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
