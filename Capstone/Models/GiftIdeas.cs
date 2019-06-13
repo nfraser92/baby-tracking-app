@@ -21,7 +21,7 @@ namespace Capstone.Models
         public int? BookTypeId { get; set; }
         public int? ToyTypeId { get; set; }
 
-        [StringLength(20, ErrorMessage = "Please shorten the Size to 20 characters")]
+        [StringLength(20, ErrorMessage = "Please shorten the Size to 20 characters")] 
         public string Size { get; set; }
 
         [Required]
