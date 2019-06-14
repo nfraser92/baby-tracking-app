@@ -10,6 +10,7 @@ using Capstone.Models;
 using Capstone.Models.ViewModels.Books;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Capstone.Controllers
 {
@@ -109,20 +110,8 @@ namespace Capstone.Controllers
             {
                 model.Book.User = user;
                 model.Book.UserId = user.Id;
-
-                if (model.ImageFile != null)
-                {
-                    var fileName = Path.GetFileName(model.ImageFile.FileName);
-                    Path.GetTempFileName();
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
-                    // var filePath = Path.GetTempFileName();
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.ImageFile.CopyToAsync(stream);
-                        // validate file, then move to CDN or public folder
-                    }
-                    model.Book.ImagePath = model.ImageFile.FileName;
-                }
+                await UploadImage(model.ImageFile);
+                model.Book.ImagePath = model.ImageFile.FileName;
                 _context.Add(model.Book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -130,6 +119,23 @@ namespace Capstone.Controllers
             ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description", model.Book.BookTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", model.Book.UserId);
             return View(model);
+        }
+
+        private static async Task UploadImage (IFormFile imageFile)
+        {
+            if (imageFile != null)
+            {
+                var fileName = Path.GetFileName(imageFile.FileName);
+                Path.GetTempFileName();
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                // var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                    // validate file, then move to CDN or public folder
+                }
+                
+            }
         }
 
         // GET: Books/Edit/5
@@ -140,13 +146,18 @@ namespace Capstone.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Book
+                .Include(b => b.BookType)
+                .Include(b => b.User)
+                .FirstOrDefaultAsync(m => m.BookId == id);
             if (book == null)
             {
                 return NotFound();
             }
+
             ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description", book.BookTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", book.UserId);
+
             return View(book);
         }
 
@@ -155,18 +166,30 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,BookTypeId,Title,UserId,ImagePath,Author,Quantity,IsOutgrown")] Book book)
+        public async Task<IActionResult> Edit(int id, IFormFile imageFile, [Bind("BookId,BookTypeId,Title,ImagePath,Author,Quantity,IsOutgrown")] Book book)
         {
             if (id != book.BookId)
             {
                 return NotFound();
             }
 
+
+            // Remove user from model validation as it is not submitted in the form.
+            // Validation will fail is this is not in here
+            ModelState.Remove("UserId");
+
+
+            var user = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    book.User = user;
+                    book.UserId = user.Id;
                     _context.Update(book);
+                    await UploadImage(imageFile);
+                    book.ImagePath = imageFile.FileName;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
