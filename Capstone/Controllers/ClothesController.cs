@@ -129,14 +129,16 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile imageFile, [Bind("ClothesId,ClothesTypeId,Size,Color,ImagePath,IsOutgrown")] Clothes clothes)
+        public async Task<IActionResult> Edit(int id, IFormFile imageFile, [Bind("ClothesId,ClothesTypeId,Size,Color,Description,ImagePath,IsOutgrown")] Clothes clothes)
         {
             if (id != clothes.ClothesId)
             {
                 return NotFound();
             }
-
+            // Remove user from model validation as it is not submitted in the form.
+            // Validation will fail is this is not in here
             ModelState.Remove("UserId");
+
 
             var user = await GetCurrentUserAsync();
 
