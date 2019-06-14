@@ -139,6 +139,7 @@ namespace Capstone.Controllers
             // Validation will fail is this is not in here
             ModelState.Remove("UserId");
 
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
 
             var user = await GetCurrentUserAsync();
 
