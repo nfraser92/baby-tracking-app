@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Capstone.Models.ViewModels.Search
 {
+    [NotMapped]
     public class Search
     {
         public Toy Toy { get; set; }
@@ -21,10 +23,6 @@ namespace Capstone.Models.ViewModels.Search
 
         public Clothes Clothes {get; set;}
         public List<Clothes> Clothing { get; set; }
-
-        public GiftIdeas GiftIdes { get; set; }
-        public List<GiftIdeas> GiftIdeas { get; set; }
-
         public string SearchString { get; set; }
 
     }

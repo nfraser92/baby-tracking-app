@@ -24,14 +24,17 @@ namespace Capstone.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() =>
             _userManager.GetUserAsync(HttpContext.User);
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
             //In order to access user specific information, the current user must be identified
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Book
+            var applicationDbContext = _context.GiftIdeas
                 .Include(b => b.BookType)
-                .Include(b => b.User);
+                .Include(c=> c.ClothesType)
+                .Include(b => b.ToyType)
+                .ThenInclude(ct => ct.)
+                .Include(t => t.Toy);
             return View(await applicationDbContext.ToListAsync());
         }
 
