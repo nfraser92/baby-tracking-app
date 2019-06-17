@@ -5,14 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Capstone.Models;
+using Capstone.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Capstone.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            return View();
+            _context = context;
+            _userManager = userManager;
+        }
+        private Task<ApplicationUser> GetCurrentUserAsync() =>
+            _userManager.GetUserAsync(HttpContext.User);
+
+        public async Task<IActionResult> Index()
+        {
+            //In order to access user specific information, the current user must be identified
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Book
+                .Include(b => b.BookType)
+                .Include(b => b.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult Privacy()
