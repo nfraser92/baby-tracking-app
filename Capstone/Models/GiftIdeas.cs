@@ -11,10 +11,13 @@ namespace Capstone.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name ="Clothes Type")]
         public ClothesType ClothesType { get; set; }
 
+        [Display(Name = "Toy Type")]
         public ToyType ToyType { get; set; }
 
+        [Display(Name = "Book Type")]
         public BookType BookType { get; set; }
 
         public int? ClothesTypeId { get; set; }

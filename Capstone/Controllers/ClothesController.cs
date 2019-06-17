@@ -114,7 +114,10 @@ namespace Capstone.Controllers
                 return NotFound();
             }
 
-            var clothes = await _context.Clothes.FindAsync(id);
+            var clothes = await _context.Clothes
+                .Include(c => c.ClothesType)
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(m => m.ClothesId == id);
             if (clothes == null)
             {
                 return NotFound();
@@ -167,7 +170,7 @@ namespace Capstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", clothes.ClothesTypeId);
+            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", clothes.ClothesType);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", clothes.UserId);
             return View(clothes);
         }

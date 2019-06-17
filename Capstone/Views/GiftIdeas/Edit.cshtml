@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="ClothesTypeId" class="control-label"></label>
-                <select asp-for="ClothesTypeId" class="form-control" asp-items="ViewBag.ClothesTypeId"><option value="">Choose a Category...</option></select>
+                <select asp-for="ClothesTypeId" class="form-control" asp-items="ViewBag.ClothesTypeId"><option value="">Choose Category...</option></select>
                 <span asp-validation-for="ClothesTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ToyTypeId" class="control-label"></label>
-                <select asp-for="ToyTypeId" class="form-control" asp-items="ViewBag.ToyTypeId"><option value=""></option>Choose a Category...</select>
+                <select asp-for="ToyTypeId" class="form-control" asp-items="ViewBag.ToyTypeId"><option value="">Choose a Category...</option></select>
                 <span asp-validation-for="ToyTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">

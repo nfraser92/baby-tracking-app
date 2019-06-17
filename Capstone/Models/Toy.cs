@@ -30,6 +30,7 @@ namespace Capstone.Models
 
         public ApplicationUser User { get; set; }
 
+        [Display(Name ="Toy Category")]
         public ToyType ToyType { get; set; }
 
 
