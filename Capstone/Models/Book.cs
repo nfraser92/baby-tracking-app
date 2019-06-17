@@ -34,8 +34,10 @@ namespace Capstone.Models
 
         public int Quantity { get; set; }
 
+        [Display(Name ="Is Outgrown")]
         public bool IsOutgrown { get; set; }
 
+        [Display(Name ="Book Type")]
         public BookType BookType { get; set; }
 
     }

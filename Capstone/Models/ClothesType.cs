@@ -19,6 +19,7 @@ namespace Capstone.Models
 
         public virtual ICollection<Clothes> Clothes { get; set; }
 
+        public string UserId { get; set; }
 
     }
 }

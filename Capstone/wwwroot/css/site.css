@@ -44,6 +44,15 @@ img.imageDisplay {
     width: 75px;
 }
 
+editImage {
+    height: 50px;
+    width: 50px;
+}
+
+img.editImage {
+    height: 50px;
+    width: 50px;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
