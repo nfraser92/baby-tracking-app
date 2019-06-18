@@ -9,27 +9,54 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<h4>Books</h4>
 <table class="table">
     <thead>
+
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookTypes)
+                Search Results:
+            </th>
+            <th>
+
             </th>
         </tr>
+
     </thead>
+
+
     <tbody>
-@foreach (var item in Model.Books) {
-        <tr>
-            <td>
-                @item.BookType
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
-            <td>
-                @item.Title
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.BookId">@Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+
+            </tr>
+        }
+    <tbody>
+        @foreach (var item in Model.Toys)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Toys" asp-action="Details" asp-route-id="@item.ToyId">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+
+            </tr>
+        }
+
+        @*@foreach (var item in Model.Clothing)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Clothes" asp-action="Details" asp-route-id="@item.Clothe">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+            </tr>
+        }*@
+
     </tbody>
 </table>

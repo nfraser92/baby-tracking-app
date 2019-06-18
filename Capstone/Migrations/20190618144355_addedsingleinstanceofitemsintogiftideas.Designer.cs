@@ -4,14 +4,16 @@ using Capstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618144355_addedsingleinstanceofitemsintogiftideas")]
+    partial class addedsingleinstanceofitemsintogiftideas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,13 +539,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c5fece8-da6b-49a3-ae17-74a8cb25e59a",
+                            ConcurrencyStamp = "b947f8ab-c2d9-47c4-bbcd-38de47307cab",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDcpSEpwZoZLPaLwJF55qTXh53NvVtE8XcX/0uvKTbslRfM10YBCW7YQ+1czFKgMtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECJMjiQstFY4Q+Rb7NDg+0hkex7F5l8QEwYYdUJAqL16T2KUAwAMH8AYFO6rbIXX+g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,

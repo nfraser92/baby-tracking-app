@@ -38,7 +38,7 @@ namespace Capstone.Controllers
 
             var model = new Search();
 
-            var books = _context.Book.Where(b => b.Title.Contains(SearchString));
+            var books = _context.Book.Where(b => b.Title.Contains(SearchString) || (b.Author.Contains(SearchString)));
 
             model.Books = books.ToList();
 
