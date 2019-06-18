@@ -5,6 +5,7 @@ using Capstone.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Capstone.Models.ViewModels.Search;
 
 namespace Capstone.Data
 {
@@ -143,5 +144,7 @@ namespace Capstone.Data
         }
 
         public DbSet<Capstone.Models.GiftIdeas> GiftIdeas { get; set; }
+
+        public DbSet<Capstone.Models.ViewModels.Search.Search> Search { get; set; }
     }
 }

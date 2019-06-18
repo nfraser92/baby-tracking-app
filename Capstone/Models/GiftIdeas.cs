@@ -29,5 +29,11 @@ namespace Capstone.Models
         public string Description { get; set; }
 
         public string ImagePath { get; set; }
+
+        public Toy Toy { get; set; }
+
+        public Book Book { get; set; }
+
+        public Clothes Clothes{ get; set; }
     }
 }
