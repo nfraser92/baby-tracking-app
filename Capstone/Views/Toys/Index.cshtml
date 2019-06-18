@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ToyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ToyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ToyId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ToyId"><i class="far fa-edit"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.ToyId"><i class="fas fa-info"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.ToyId"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
 }
