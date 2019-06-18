@@ -56,7 +56,7 @@ namespace Capstone.Data
                 new BookType()
                 {
                     BookTypeId = 2,
-                    Description = "Nature",
+                    Description = "Animals",
                 },
                  new BookType()
                  {
@@ -71,7 +71,12 @@ namespace Capstone.Data
                    new BookType()
                    {
                        BookTypeId = 5,
-                       Description = "Learning",
+                       Description = "Counting/Alphabet",
+                   },
+                   new BookType()
+                   {
+                       BookTypeId = 6,
+                       Description = "Coloring",
                    }
                 );
 
@@ -142,9 +147,7 @@ namespace Capstone.Data
 
 
         }
-
         public DbSet<Capstone.Models.GiftIdeas> GiftIdeas { get; set; }
 
-        public DbSet<Capstone.Models.ViewModels.Search.Search> Search { get; set; }
     }
 }

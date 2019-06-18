@@ -58,8 +58,7 @@ namespace Capstone.Controllers
             //    .Include(ct => ct.ClothesType)
             //    .Include(t => t.Toy)
             //    .Include(b => b.ToyType)
-            //    .Where(x => x.Book.);
-            //    //|| (x.Book.Author.Contains(SearchString) || (x.Clothes.Description.Contains(SearchString) ||
+            //    .Where(x.Book.Author.Contains(SearchString) || (x.Clothes.Description.Contains(SearchString) ||
             //    //      (x.Clothes.Color.Contains(SearchString) || (x.Toy.Color.Contains(SearchString) || (x.Toy.Description.Contains(SearchString)))))));
             return View(model);
         }

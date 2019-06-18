@@ -70,7 +70,8 @@ namespace Capstone.Migrations
                 {
                     ClothesTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 55, nullable: false)
+                    Description = table.Column<string>(maxLength: 55, nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,7 +302,8 @@ namespace Capstone.Migrations
                     ImagePath = table.Column<string>(nullable: true),
                     ToyId = table.Column<int>(nullable: true),
                     BookId = table.Column<int>(nullable: true),
-                    ClothesId = table.Column<int>(nullable: true)
+                    ClothesId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -342,12 +344,18 @@ namespace Capstone.Migrations
                         principalTable: "ToyType",
                         principalColumn: "ToyTypeId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName", "StreetAddress" },
-                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "b2c4fedb-d3bb-4fde-8349-f2b050cd2650", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEDZ0rv7iWbEPt6772VR6hlF62frHdSV7k7qtZWcYeICUWrpPKAjNJWZS9oLA33g9Bg==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
+                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "3e9fd402-0da3-4ff6-9b76-40f382e2bde5", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEFqXtcTSsFJQKPqyaadfML64j2mvnfoQZ+B5xqT5sSbuX+b1Iv04gYmku6HXRu0QUw==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
 
             migrationBuilder.InsertData(
                 table: "BookType",
@@ -355,25 +363,26 @@ namespace Capstone.Migrations
                 values: new object[,]
                 {
                     { 1, "Musical/Sounds/Nursery Rhymes" },
-                    { 2, "Nature" },
+                    { 2, "Animals" },
                     { 3, "Activity Books" },
                     { 4, "Board Books" },
-                    { 5, "Learning" }
+                    { 5, "Counting/Alphabet" },
+                    { 6, "Coloring" }
                 });
 
             migrationBuilder.InsertData(
                 table: "ClothesType",
-                columns: new[] { "ClothesTypeId", "Description" },
+                columns: new[] { "ClothesTypeId", "Description", "UserId" },
                 values: new object[,]
                 {
-                    { 9, "Sweaters" },
-                    { 8, "Jackets" },
-                    { 7, "Hats" },
-                    { 6, "Shoes" },
-                    { 3, "Shorts" },
-                    { 2, "Pants" },
-                    { 1, "Shirts" },
-                    { 5, "Socks" }
+                    { 9, "Sweaters", null },
+                    { 8, "Jackets", null },
+                    { 7, "Hats", null },
+                    { 6, "Shoes", null },
+                    { 3, "Shorts", null },
+                    { 2, "Pants", null },
+                    { 1, "Shirts", null },
+                    { 5, "Socks", null }
                 });
 
             migrationBuilder.InsertData(
@@ -475,6 +484,11 @@ namespace Capstone.Migrations
                 name: "IX_GiftIdeas_ToyTypeId",
                 table: "GiftIdeas",
                 column: "ToyTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftIdeas_UserId",
+                table: "GiftIdeas",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Toy_ToyTypeId",

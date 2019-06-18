@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Capstone.Models.ViewModels.Search
 {
-    [NotMapped]
     public class Search
     {
         [Key]

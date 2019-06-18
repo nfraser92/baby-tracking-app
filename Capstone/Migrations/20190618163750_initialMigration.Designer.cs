@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190617142231_UserIdtoClothesType")]
-    partial class UserIdtoClothesType
+    [Migration("20190618163750_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,7 +77,7 @@ namespace Capstone.Migrations
                         new
                         {
                             BookTypeId = 2,
-                            Description = "Nature"
+                            Description = "Animals"
                         },
                         new
                         {
@@ -92,7 +92,12 @@ namespace Capstone.Migrations
                         new
                         {
                             BookTypeId = 5,
-                            Description = "Learning"
+                            Description = "Counting/Alphabet"
+                        },
+                        new
+                        {
+                            BookTypeId = 6,
+                            Description = "Coloring"
                         });
                 });
 
@@ -196,7 +201,11 @@ namespace Capstone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BookId");
+
                     b.Property<int?>("BookTypeId");
+
+                    b.Property<int?>("ClothesId");
 
                     b.Property<int?>("ClothesTypeId");
 
@@ -209,15 +218,23 @@ namespace Capstone.Migrations
                     b.Property<string>("Size")
                         .HasMaxLength(20);
 
+                    b.Property<int?>("ToyId");
+
                     b.Property<int?>("ToyTypeId");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookId");
+
                     b.HasIndex("BookTypeId");
 
+                    b.HasIndex("ClothesId");
+
                     b.HasIndex("ClothesTypeId");
+
+                    b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
 
@@ -478,13 +495,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f99814c7-4575-40a7-a532-a29e41592df2",
+                            ConcurrencyStamp = "3e9fd402-0da3-4ff6-9b76-40f382e2bde5",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECEenqlmq7EOoDScepwd3gnDKVQTtw3lz0LVrRXcZw/afZmmgWvfsdYJ15Nc5e0ixw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFqXtcTSsFJQKPqyaadfML64j2mvnfoQZ+B5xqT5sSbuX+b1Iv04gYmku6HXRu0QUw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -521,13 +538,25 @@ namespace Capstone.Migrations
 
             modelBuilder.Entity("Capstone.Models.GiftIdeas", b =>
                 {
+                    b.HasOne("Capstone.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId");
+
                     b.HasOne("Capstone.Models.BookType", "BookType")
                         .WithMany()
                         .HasForeignKey("BookTypeId");
 
+                    b.HasOne("Capstone.Models.Clothes", "Clothes")
+                        .WithMany()
+                        .HasForeignKey("ClothesId");
+
                     b.HasOne("Capstone.Models.ClothesType", "ClothesType")
                         .WithMany()
                         .HasForeignKey("ClothesTypeId");
+
+                    b.HasOne("Capstone.Models.Toy", "Toy")
+                        .WithMany()
+                        .HasForeignKey("ToyId");
 
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()
