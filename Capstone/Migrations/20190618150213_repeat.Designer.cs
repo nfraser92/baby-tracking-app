@@ -4,14 +4,16 @@ using Capstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618150213_repeat")]
+    partial class repeat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +153,6 @@ namespace Capstone.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("ClothesTypeId");
 
                     b.ToTable("ClothesType");
@@ -227,8 +227,6 @@ namespace Capstone.Migrations
 
                     b.Property<int?>("ToyTypeId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
@@ -242,8 +240,6 @@ namespace Capstone.Migrations
                     b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("GiftIdeas");
                 });
@@ -543,13 +539,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "930f6459-3ec6-48ec-8274-1d581cc9745f",
+                            ConcurrencyStamp = "4c5fece8-da6b-49a3-ae17-74a8cb25e59a",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAQN5sMyTktEuRywDErE2aNhU+TN/l4bwXT2Q81PELFyasp9PQgbFUXfcVn9/JC6wQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDcpSEpwZoZLPaLwJF55qTXh53NvVtE8XcX/0uvKTbslRfM10YBCW7YQ+1czFKgMtA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -624,10 +620,6 @@ namespace Capstone.Migrations
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()
                         .HasForeignKey("ToyTypeId");
-
-                    b.HasOne("Capstone.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Capstone.Models.Toy", b =>

@@ -33,8 +33,14 @@ namespace Capstone.Models
 
         public string ImagePath { get; set; }
 
+        public Toy Toy { get; set; }
+
+        public Book Book { get; set; }
+
+        public Clothes Clothes{ get; set; }
         public ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
+
     }
 }

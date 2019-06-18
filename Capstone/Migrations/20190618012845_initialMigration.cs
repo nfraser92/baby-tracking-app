@@ -259,42 +259,6 @@ namespace Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GiftIdeas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ClothesTypeId = table.Column<int>(nullable: true),
-                    BookTypeId = table.Column<int>(nullable: true),
-                    ToyTypeId = table.Column<int>(nullable: true),
-                    Size = table.Column<string>(maxLength: 20, nullable: false),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
-                    ImagePath = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GiftIdeas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GiftIdeas_BookType_BookTypeId",
-                        column: x => x.BookTypeId,
-                        principalTable: "BookType",
-                        principalColumn: "BookTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GiftIdeas_ClothesType_ClothesTypeId",
-                        column: x => x.ClothesTypeId,
-                        principalTable: "ClothesType",
-                        principalColumn: "ClothesTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GiftIdeas_ToyType_ToyTypeId",
-                        column: x => x.ToyTypeId,
-                        principalTable: "ToyType",
-                        principalColumn: "ToyTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Toy",
                 columns: table => new
                 {
@@ -304,7 +268,7 @@ namespace Capstone.Migrations
                     UserId = table.Column<string>(nullable: true),
                     Color = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    ImagePath = table.Column<string>(nullable: false)
+                    ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -323,10 +287,67 @@ namespace Capstone.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GiftIdeas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClothesTypeId = table.Column<int>(nullable: true),
+                    BookTypeId = table.Column<int>(nullable: true),
+                    ToyTypeId = table.Column<int>(nullable: true),
+                    Size = table.Column<string>(maxLength: 20, nullable: true),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    ToyId = table.Column<int>(nullable: true),
+                    BookId = table.Column<int>(nullable: true),
+                    ClothesId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftIdeas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_BookType_BookTypeId",
+                        column: x => x.BookTypeId,
+                        principalTable: "BookType",
+                        principalColumn: "BookTypeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_Clothes_ClothesId",
+                        column: x => x.ClothesId,
+                        principalTable: "Clothes",
+                        principalColumn: "ClothesId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_ClothesType_ClothesTypeId",
+                        column: x => x.ClothesTypeId,
+                        principalTable: "ClothesType",
+                        principalColumn: "ClothesTypeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_Toy_ToyId",
+                        column: x => x.ToyId,
+                        principalTable: "Toy",
+                        principalColumn: "ToyId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GiftIdeas_ToyType_ToyTypeId",
+                        column: x => x.ToyTypeId,
+                        principalTable: "ToyType",
+                        principalColumn: "ToyTypeId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName", "StreetAddress" },
-                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "94626ba8-eab1-47b6-8d25-f340497b1d51", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEN/aG0ElGNeN8Cm13skvsgSPfRJ9yXfTqOD80Bke5+fUtJaGC1L5qbLt7hlyJ3d2ow==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
+                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "b2c4fedb-d3bb-4fde-8349-f2b050cd2650", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEDZ0rv7iWbEPt6772VR6hlF62frHdSV7k7qtZWcYeICUWrpPKAjNJWZS9oLA33g9Bg==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
 
             migrationBuilder.InsertData(
                 table: "BookType",
@@ -426,14 +447,29 @@ namespace Capstone.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiftIdeas_BookId",
+                table: "GiftIdeas",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GiftIdeas_BookTypeId",
                 table: "GiftIdeas",
                 column: "BookTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiftIdeas_ClothesId",
+                table: "GiftIdeas",
+                column: "ClothesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GiftIdeas_ClothesTypeId",
                 table: "GiftIdeas",
                 column: "ClothesTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftIdeas_ToyId",
+                table: "GiftIdeas",
+                column: "ToyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GiftIdeas_ToyTypeId",
@@ -469,19 +505,19 @@ namespace Capstone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "GiftIdeas");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Book");
 
             migrationBuilder.DropTable(
                 name: "Clothes");
 
             migrationBuilder.DropTable(
-                name: "GiftIdeas");
-
-            migrationBuilder.DropTable(
                 name: "Toy");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "BookType");

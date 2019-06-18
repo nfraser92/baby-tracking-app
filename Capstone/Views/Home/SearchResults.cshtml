@@ -1,0 +1,58 @@
+﻿@model Capstone.Models.ViewModels.Search.Search
+
+@{
+    ViewData["Title"] = "SearchResults";
+}
+
+<h1>SearchResults</h1>
+
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                Search Results:
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.BookId">@Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+
+            </tr>
+        }
+    <tbody>
+        @foreach (var toy in Model.Toys)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Toys" asp-action="Details" asp-route-id="@toy.ToyId">@Html.DisplayFor(modelItem => toy.Description)</a>
+                </td>
+
+
+            </tr>
+        }
+
+        @foreach (var item in Model.Clothing)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Clothes" asp-action="Details" asp-route-id="@item.ClothesId">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

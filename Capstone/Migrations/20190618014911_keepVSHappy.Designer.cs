@@ -4,14 +4,16 @@ using Capstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618014911_keepVSHappy")]
+    partial class keepVSHappy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +153,6 @@ namespace Capstone.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("ClothesTypeId");
 
                     b.ToTable("ClothesType");
@@ -227,8 +227,6 @@ namespace Capstone.Migrations
 
                     b.Property<int?>("ToyTypeId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
@@ -242,8 +240,6 @@ namespace Capstone.Migrations
                     b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("GiftIdeas");
                 });
@@ -331,7 +327,7 @@ namespace Capstone.Migrations
 
                     b.Property<int?>("ClothesId");
 
-                    b.Property<int?>("ClothesTypeId");
+                    b.Property<string>("SearchString");
 
                     b.Property<int?>("ToyId");
 
@@ -344,8 +340,6 @@ namespace Capstone.Migrations
                     b.HasIndex("BookTypeId");
 
                     b.HasIndex("ClothesId");
-
-                    b.HasIndex("ClothesTypeId");
 
                     b.HasIndex("ToyId");
 
@@ -543,13 +537,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "930f6459-3ec6-48ec-8274-1d581cc9745f",
+                            ConcurrencyStamp = "1ff4f133-bf12-4fe2-bbe1-2b39c3d2638c",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAQN5sMyTktEuRywDErE2aNhU+TN/l4bwXT2Q81PELFyasp9PQgbFUXfcVn9/JC6wQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED4RYQn8GOBGvr4Au35eD0YiZuMDYaKVuf8/SNONR1UEHZnja6T6js0V7v6xEsFrjg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -624,10 +618,6 @@ namespace Capstone.Migrations
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()
                         .HasForeignKey("ToyTypeId");
-
-                    b.HasOne("Capstone.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Capstone.Models.Toy", b =>
@@ -666,10 +656,6 @@ namespace Capstone.Migrations
                     b.HasOne("Capstone.Models.Clothes", "Clothes")
                         .WithMany()
                         .HasForeignKey("ClothesId");
-
-                    b.HasOne("Capstone.Models.ClothesType", "ClothesType")
-                        .WithMany()
-                        .HasForeignKey("ClothesTypeId");
 
                     b.HasOne("Capstone.Models.Toy", "Toy")
                         .WithMany()

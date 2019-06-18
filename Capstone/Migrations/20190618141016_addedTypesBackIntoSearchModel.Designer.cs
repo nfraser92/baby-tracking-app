@@ -4,14 +4,16 @@ using Capstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618141016_addedTypesBackIntoSearchModel")]
+    partial class addedTypesBackIntoSearchModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +153,6 @@ namespace Capstone.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("ClothesTypeId");
 
                     b.ToTable("ClothesType");
@@ -227,8 +227,6 @@ namespace Capstone.Migrations
 
                     b.Property<int?>("ToyTypeId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
@@ -242,8 +240,6 @@ namespace Capstone.Migrations
                     b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("GiftIdeas");
                 });
@@ -325,29 +321,17 @@ namespace Capstone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookId");
-
                     b.Property<int?>("BookTypeId");
 
-                    b.Property<int?>("ClothesId");
-
                     b.Property<int?>("ClothesTypeId");
-
-                    b.Property<int?>("ToyId");
 
                     b.Property<int?>("ToyTypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.HasIndex("BookTypeId");
 
-                    b.HasIndex("ClothesId");
-
                     b.HasIndex("ClothesTypeId");
-
-                    b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
 
@@ -543,13 +527,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "930f6459-3ec6-48ec-8274-1d581cc9745f",
+                            ConcurrencyStamp = "180a7e56-b147-4004-bcf4-4cbb7c2c9be2",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAQN5sMyTktEuRywDErE2aNhU+TN/l4bwXT2Q81PELFyasp9PQgbFUXfcVn9/JC6wQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPq6p2RlajqKPZzn5Nwks6ZxHUqpSmw20ywYa6q0HrXbjznsIh37rSSYndjpMnQhmA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -624,10 +608,6 @@ namespace Capstone.Migrations
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()
                         .HasForeignKey("ToyTypeId");
-
-                    b.HasOne("Capstone.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Capstone.Models.Toy", b =>
@@ -655,25 +635,13 @@ namespace Capstone.Migrations
 
             modelBuilder.Entity("Capstone.Models.ViewModels.Search.Search", b =>
                 {
-                    b.HasOne("Capstone.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
                     b.HasOne("Capstone.Models.BookType", "BookType")
                         .WithMany()
                         .HasForeignKey("BookTypeId");
 
-                    b.HasOne("Capstone.Models.Clothes", "Clothes")
-                        .WithMany()
-                        .HasForeignKey("ClothesId");
-
                     b.HasOne("Capstone.Models.ClothesType", "ClothesType")
                         .WithMany()
                         .HasForeignKey("ClothesTypeId");
-
-                    b.HasOne("Capstone.Models.Toy", "Toy")
-                        .WithMany()
-                        .HasForeignKey("ToyId");
 
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190612205816_removedImageRequirement")]
-    partial class removedImageRequirement
+    [Migration("20190618012845_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,7 +194,11 @@ namespace Capstone.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BookId");
+
                     b.Property<int?>("BookTypeId");
+
+                    b.Property<int?>("ClothesId");
 
                     b.Property<int?>("ClothesTypeId");
 
@@ -205,16 +209,23 @@ namespace Capstone.Migrations
                     b.Property<string>("ImagePath");
 
                     b.Property<string>("Size")
-                        .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<int?>("ToyId");
 
                     b.Property<int?>("ToyTypeId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookId");
+
                     b.HasIndex("BookTypeId");
 
+                    b.HasIndex("ClothesId");
+
                     b.HasIndex("ClothesTypeId");
+
+                    b.HasIndex("ToyId");
 
                     b.HasIndex("ToyTypeId");
 
@@ -473,13 +484,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "75d9e65a-0c69-4a59-86c9-a0ef3a2187a9",
+                            ConcurrencyStamp = "b2c4fedb-d3bb-4fde-8349-f2b050cd2650",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOryTb1gEzxck0x9qKZ1NfV97OQw6jqGGMpCcaYHYqghpgjbhl9gyKvREOUuo7ezww==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDZ0rv7iWbEPt6772VR6hlF62frHdSV7k7qtZWcYeICUWrpPKAjNJWZS9oLA33g9Bg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,
@@ -516,13 +527,25 @@ namespace Capstone.Migrations
 
             modelBuilder.Entity("Capstone.Models.GiftIdeas", b =>
                 {
+                    b.HasOne("Capstone.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId");
+
                     b.HasOne("Capstone.Models.BookType", "BookType")
                         .WithMany()
                         .HasForeignKey("BookTypeId");
 
+                    b.HasOne("Capstone.Models.Clothes", "Clothes")
+                        .WithMany()
+                        .HasForeignKey("ClothesId");
+
                     b.HasOne("Capstone.Models.ClothesType", "ClothesType")
                         .WithMany()
                         .HasForeignKey("ClothesTypeId");
+
+                    b.HasOne("Capstone.Models.Toy", "Toy")
+                        .WithMany()
+                        .HasForeignKey("ToyId");
 
                     b.HasOne("Capstone.Models.ToyType", "ToyType")
                         .WithMany()
