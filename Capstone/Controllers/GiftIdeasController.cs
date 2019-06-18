@@ -7,22 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Capstone.Data;
 using Capstone.Models;
+using Capstone.Models.ViewModels.Gift_Ideas;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Capstone.Controllers
 {
     public class GiftIdeasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public GiftIdeasController(ApplicationDbContext context)
+        public GiftIdeasController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() =>
+            _userManager.GetUserAsync(HttpContext.User);
+
 
         // GET: GiftIdeas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.GiftIdeas.Include(g => g.BookType).Include(g => g.ToyType);
+            var applicationDbContext = _context.GiftIdeas.Include(g => g.BookType).Include(g => g.ToyType).Include(g => g.ClothesType);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,10 +58,12 @@ namespace Capstone.Controllers
         // GET: GiftIdeas/Create
         public IActionResult Create()
         {
+            GiftUploadViewModel model = new GiftUploadViewModel();
+            model.GiftIdeas = new GiftIdeas();
             ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description");
             ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description");
             ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description");
-            return View();
+            return View(model);
         }
 
         // POST: GiftIdeas/Create
@@ -60,18 +71,45 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClothesTypeId,BookTypeId,ToyTypeId,Size,Description,ImagePath")] GiftIdeas giftIdeas)
+        public async Task<IActionResult> Create(GiftUploadViewModel model)
         {
+            ModelState.Remove("UserId");
+
+            var user = await GetCurrentUserAsync();
+
+            //If you want to check errors in model state use the code below:
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             if (ModelState.IsValid)
             {
-                _context.Add(giftIdeas);
+                model.GiftIdeas.User = user;
+                model.GiftIdeas.UserId = user.Id;
+                await UploadImage(model.ImageFile);
+                model.GiftIdeas.ImagePath = model.ImageFile.FileName;
+                _context.Add(model.GiftIdeas);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description", giftIdeas.BookTypeId);
-            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description", giftIdeas.ToyTypeId);
-            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description");
-            return View(giftIdeas);
+            ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description", model.GiftIdeas.BookTypeId);
+            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description", model.GiftIdeas.ToyTypeId);
+            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", model.GiftIdeas.ClothesType);
+            return View(model);
+        }
+
+        private static async Task UploadImage(IFormFile imageFile)
+        {
+            if (imageFile != null)
+            {
+                var fileName = Path.GetFileName(imageFile.FileName);
+                Path.GetTempFileName();
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                // var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                    // validate file, then move to CDN or public folder
+                }
+            }
         }
 
         // GET: GiftIdeas/Edit/5
@@ -98,18 +136,28 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClothesTypeId,BookTypeId,ToyTypeId,Size,Description,ImagePath")] GiftIdeas giftIdeas)
+        public async Task<IActionResult> Edit(int id, IFormFile imageFile, [Bind("Id,ClothesTypeId,BookTypeId,ToyTypeId,Size,Description,ImagePath")] GiftIdeas giftIdeas)
         {
             if (id != giftIdeas.Id)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("UserId");
+
+
+            var user = await GetCurrentUserAsync();
+
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    giftIdeas.User = user;
+                    giftIdeas.UserId = user.Id;
                     _context.Update(giftIdeas);
+                    await UploadImage(imageFile);
+                    giftIdeas.ImagePath = imageFile.FileName;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

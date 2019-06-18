@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,14 +27,18 @@ namespace Capstone.Models
 
         [Display(Name ="Item Image")]
         public string ImagePath { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Author { get; set; }
 
         public int Quantity { get; set; }
 
+        [Display(Name ="Is Outgrown")]
         public bool IsOutgrown { get; set; }
 
+        [Display(Name ="Book Type")]
         public BookType BookType { get; set; }
+
     }
 }

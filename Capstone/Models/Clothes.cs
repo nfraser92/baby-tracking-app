@@ -33,8 +33,10 @@ namespace Capstone.Models
         public string UserId { get; set; }
 
         [Required]
+        [Display(Name="Is Outgrown")]
         public bool IsOutgrown { get; set; }
 
+        [Display(Name ="Clothes Category")]
         public ClothesType ClothesType { get; set; }
 
     }

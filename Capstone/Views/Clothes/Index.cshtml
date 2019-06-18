@@ -19,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsOutgrown)
+                @Html.DisplayNameFor(model => model.ClothesType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClothesType)
+                @Html.DisplayNameFor(model => model.IsOutgrown)
             </th>
             <th></th>
         </tr>
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsOutgrown)
+                @Html.DisplayFor(modelItem => item.ClothesType.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClothesType.Description)
+                @Html.DisplayFor(modelItem => item.IsOutgrown)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ClothesId">Edit</a> |

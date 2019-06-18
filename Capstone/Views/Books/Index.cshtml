@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Title), "Index", new { _orderBy = "Title", _sortDirection = ViewData["sortDirection"] })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Author)

@@ -19,16 +19,13 @@
                 @Html.DisplayNameFor(model => model.BookType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClothesTypeId)
+                @Html.DisplayNameFor(model => model.ClothesType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th></th>
         </tr>
@@ -43,16 +40,13 @@
                 @Html.DisplayFor(modelItem => item.BookType.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClothesTypeId)
+                @Html.DisplayFor(modelItem => item.ClothesType.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -10,6 +10,7 @@ using Capstone.Models;
 using Microsoft.AspNetCore.Identity;
 using Capstone.Models.ViewModels.Clothing;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Capstone.Controllers
 {
@@ -77,20 +78,8 @@ namespace Capstone.Controllers
             {
                 model.Clothes.User = user;
                 model.Clothes.UserId = user.Id;
-
-                if (model.ImageFile != null)
-                {
-                    var fileName = Path.GetFileName(model.ImageFile.FileName);
-                    Path.GetTempFileName();
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
-                    // var filePath = Path.GetTempFileName();
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.ImageFile.CopyToAsync(stream);
-                        // validate file, then move to CDN or public folder
-                    }
-                    model.Clothes.ImagePath = model.ImageFile.FileName;
-                }
+                await UploadImage(model.ImageFile);
+                model.Clothes.ImagePath = model.ImageFile.FileName;
                 _context.Add(model.Clothes);
 
                 await _context.SaveChangesAsync();
@@ -101,6 +90,22 @@ namespace Capstone.Controllers
             return View(model);
         }
 
+        private static async Task UploadImage(IFormFile imageFile)
+        {
+            if (imageFile != null)
+            {
+                var fileName = Path.GetFileName(imageFile.FileName);
+                Path.GetTempFileName();
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                // var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                    // validate file, then move to CDN or public folder
+                }
+            }
+        }
+
         // GET: Clothes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -109,7 +114,10 @@ namespace Capstone.Controllers
                 return NotFound();
             }
 
-            var clothes = await _context.Clothes.FindAsync(id);
+            var clothes = await _context.Clothes
+                .Include(c => c.ClothesType)
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(m => m.ClothesId == id);
             if (clothes == null)
             {
                 return NotFound();
@@ -124,18 +132,29 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClothesId,ClothesTypeId,Size,Color,ImagePath,UserId,IsOutgrown")] Clothes clothes)
+        public async Task<IActionResult> Edit(int id, IFormFile imageFile, [Bind("ClothesId,ClothesTypeId,Size,Color,Description,ImagePath,IsOutgrown")] Clothes clothes)
         {
             if (id != clothes.ClothesId)
             {
                 return NotFound();
             }
+            // Remove user from model validation as it is not submitted in the form.
+            // Validation will fail is this is not in here
+            ModelState.Remove("UserId");
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+            var user = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    clothes.User = user;
+                    clothes.UserId = user.Id;
                     _context.Update(clothes);
+                    await UploadImage(imageFile);
+                    clothes.ImagePath = imageFile.FileName;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -151,7 +170,7 @@ namespace Capstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", clothes.ClothesTypeId);
+            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", clothes.ClothesType);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", clothes.UserId);
             return View(clothes);
         }
