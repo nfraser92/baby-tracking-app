@@ -42,6 +42,15 @@ namespace Capstone.Controllers
 
             model.Books = books.ToList();
 
+            var toys = _context.Toy.Where(t => t.Color.Contains(SearchString) || (t.Description.Contains(SearchString)));
+
+            model.Toys = toys.ToList();
+
+            var clothes = _context.Clothes.Where(c => c.Color.Contains(SearchString) || (c.Description.Contains(SearchString)));
+
+            model.Clothing = clothes.ToList();
+
+
             //var applicationDbContext = _context.GiftIdeas
             //    .Include(b => b.Book)
             //    .Include(b => b.BookType)
