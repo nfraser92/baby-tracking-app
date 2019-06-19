@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h4>Library</h4>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-secondary">Add a Book!</a>
 </p>
 <table class="table">
     <thead>
@@ -31,29 +31,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookType.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsOutgrown)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookId"><i class="far fa-edit"></i></a> |
-                <a asp-action="Details" asp-route-id="@item.BookId"><i class="fas fa-info"></i></a> |
-                <a asp-action="Delete" asp-route-id="@item.BookId"><i class="fas fa-trash"></i></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookType.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsOutgrown)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BookId"><i class="far fa-edit"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.BookId"><i class="fas fa-info"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.BookId"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -81,8 +81,8 @@ img.editImage {
     color: orange
 }
 
-td, th {
-    text-align: center;
+.btn-secondary {
+    margin-top: 20px
 }
 
 /* Sticky footer styles
