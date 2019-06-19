@@ -26,6 +26,10 @@ namespace Capstone.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() =>
             _userManager.GetUserAsync(HttpContext.User);
 
+        public async Task<IActionResult> LandingPage()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
