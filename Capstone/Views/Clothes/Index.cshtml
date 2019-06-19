@@ -7,19 +7,19 @@
 <h4>Closet</h4>
 
 <p>
-    <a asp-action="Create" class="btn btn-secondary">Add New Clothes!</a>
+    <a asp-action="Create" class="btn btn-secondary">Add Clothes!</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ClothesType)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClothesType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsOutgrown)
@@ -32,14 +32,14 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ClothesType.Description)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Size)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClothesType.Description)
-                </td>
+              </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsOutgrown)
                 </td>
