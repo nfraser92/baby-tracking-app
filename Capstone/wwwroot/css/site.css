@@ -61,12 +61,28 @@ img.editImage {
     color: red;
 }
 
+.fa-info {
+    margin: 10px;
+}
+
+.fa-edit {
+    margin: 10px;
+}
+
+.fa-trash {
+    margin: 10px;
+}
+
 .fa-info:hover {
     color: #4CAF50
 }
 
 .fa-edit:hover{
     color: orange
+}
+
+td, th {
+    text-align: center;
 }
 
 /* Sticky footer styles
