@@ -61,6 +61,18 @@ img.editImage {
     color: red;
 }
 
+.fa-info {
+    margin: 10px;
+}
+
+.fa-edit {
+    margin: 10px;
+}
+
+.fa-trash {
+    margin: 10px;
+}
+
 .fa-info:hover {
     color: #4CAF50
 }
@@ -71,7 +83,6 @@ img.editImage {
 
 .btn-secondary {
     margin-top: 25px;
-}
 
 /* Sticky footer styles
 -------------------------------------------------- */
