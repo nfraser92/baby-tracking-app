@@ -85,7 +85,17 @@ img.editImage {
     margin-top: 20px
 }
 
+.jumbotron {
+    color: white
+}
 
+.display-4 {
+    font-weight: bolder;
+}
+
+.btn-lg {
+    border-color: #05386B
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
