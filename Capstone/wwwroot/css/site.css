@@ -69,6 +69,10 @@ img.editImage {
     color: orange
 }
 
+.btn-secondary {
+    margin-top: 25px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
