@@ -17,10 +17,13 @@
                 @Html.DisplayNameFor(model => model.ToyType)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th></th>
         </tr>
@@ -28,22 +31,26 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ToyType.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ToyId"><i class="far fa-edit"></i></a> |
-                    <a asp-action="Details" asp-route-id="@item.ToyId"><i class="fas fa-info"></i></a> |
-                    <a asp-action="Delete" asp-route-id="@item.ToyId"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToyType.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                <img src="/images/@item.ImagePath" class="imageDisplay" />
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ToyId"><i class="far fa-edit"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.ToyId"><i class="fas fa-info"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.ToyId"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
