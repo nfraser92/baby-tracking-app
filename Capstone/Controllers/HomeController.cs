@@ -38,11 +38,11 @@ namespace Capstone.Controllers
 
             var model = new Search();
 
-            var books = _context.Book.Where(b => b.Title.Contains(SearchString) || (b.Author.Contains(SearchString)));
+            var books = _context.Book.Where(b => b.Title.Contains(SearchString) || (b.Author.Contains(SearchString) || (b.BookType.Description.Contains(SearchString))));
 
             model.Books = books.ToList();
 
-            var toys = _context.Toy.Where(t => t.Color.Contains(SearchString) || (t.Description.Contains(SearchString)));
+            var toys = _context.Toy.Where(t => t.Color.Contains(SearchString) || (t.ToyType.Description.Contains(SearchString) || (t.Description.Contains(SearchString))));
 
             model.Toys = toys.ToList();
 
