@@ -30,7 +30,8 @@ namespace Capstone.Controllers
         // GET: Clothes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Clothes.Include(c => c.ClothesType).Include(c => c.User);
+            var user = await GetCurrentUserAsync();
+            var applicationDbContext = _context.Clothes.Include(c => c.ClothesType).Include(c => c.User).Where(c => c.UserId == user.Id); 
             return View(await applicationDbContext.ToListAsync());
         }
 

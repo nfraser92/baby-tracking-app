@@ -1,8 +1,36 @@
-﻿@{
+﻿@model Capstone.Models.GroupedItems
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h3>Items in Your Home:</h3>
+                
+    <h4>
+        <a asp-controller="Clothes" asp-action="Index" asp-route-id="@Model.Clothes">@Html.DisplayNameFor(Model => Model.Clothes)</a>
+    </h4>
+        @foreach (var item in Model.Clothes)
+        {
+                    @Html.DisplayFor(modelItem => item.Description)<br />
+        }
+
+    <h4>
+        <a asp-controller="Books" asp-action="Index" asp-route-id="@Model.Books">@Html.DisplayNameFor(Model => Model.Books)</a>
+    </h4>
+        @foreach (var item in Model.Books)
+        {
+
+                    @Html.DisplayFor(modelItem => item.Title) <br />
+
+        }
+
+    <h4>
+        <a asp-controller="Toys" asp-action="Index" asp-route-id="@Model.Toys">@Html.DisplayNameFor(Model => Model.Toys)</a>
+      </h4>
+
+    @foreach (var item in Model.Toys)
+    {
+
+        @Html.DisplayFor(modelItem => item.Description)<br />
+
+    }
