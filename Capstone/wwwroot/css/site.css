@@ -10,8 +10,22 @@ a.navbar-brand {
 .navbar {
     background-color: goldenrod
 }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-container {
+    justify-content: space-between;
+    border: dashed;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 html {
     font-size: 14px;
 }
@@ -98,14 +112,18 @@ img.editImage {
 }
 /* Sticky footer styles
 -------------------------------------------------- */
+
+
 html {
     position: relative;
     min-height: 100%;
+    
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    
 }
 .footer {
   position: absolute;

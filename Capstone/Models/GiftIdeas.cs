@@ -42,7 +42,5 @@ namespace Capstone.Models
 
         public string UserId { get; set; }
 
-        public string Author { get; set; }
-
     }
 }
