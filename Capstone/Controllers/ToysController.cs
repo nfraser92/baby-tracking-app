@@ -30,7 +30,9 @@ namespace Capstone.Controllers
         // GET: Toys
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Toy.Include(t => t.ToyType).Include(t => t.User);
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Toy.Include(t => t.ToyType).Include(t => t.User).Where(b => b.UserId == user.Id); ;
             return View(await applicationDbContext.ToListAsync());
         }
 

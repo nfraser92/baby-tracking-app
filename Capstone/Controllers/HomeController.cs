@@ -28,11 +28,40 @@ namespace Capstone.Controllers
 
         public async Task<IActionResult> LandingPage()
         {
+
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction(nameof(Index));
             return View();
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await GetCurrentUserAsync();
+
+            var model = new GroupedItems();
+
+            model.Books = _context.Book
+                .Include(b => b.BookType)
+                .Include(b => b.User)
+                .Where(b => b.UserId == user.Id)
+                .OrderByDescending(x => x.Title)
+                .Take(4);
+
+            model.Clothes = _context.Clothes
+                .Include(c => c.ClothesType)
+                .Include(c => c.User)
+                .Where(b => b.UserId == user.Id)
+                .OrderByDescending(x => x.Description)
+                .Take(4);
+
+            model.Toys = _context.Toy
+                .Include(t => t.ToyType)
+                .Include(t => t.User)
+                .Where(b => b.UserId == user.Id)
+                .OrderByDescending(x => x.Description)
+                .Take(4);
+
+            
+            return View(model);
         }
 
         public async Task<IActionResult> SearchResults(string SearchString)

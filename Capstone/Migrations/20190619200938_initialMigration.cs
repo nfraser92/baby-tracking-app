@@ -355,7 +355,7 @@ namespace Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName", "StreetAddress" },
-                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "3e9fd402-0da3-4ff6-9b76-40f382e2bde5", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEFqXtcTSsFJQKPqyaadfML64j2mvnfoQZ+B5xqT5sSbuX+b1Iv04gYmku6HXRu0QUw==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
+                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "3c89e7cb-ae7b-4881-831b-83f301aa941f", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEEsHR1KP5Bs7M0xPYCio/5/j8dqWtjDWS0oyDh/tR/ohBDp0WpDP82pxBKRv3od6bg==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
 
             migrationBuilder.InsertData(
                 table: "BookType",

@@ -31,7 +31,8 @@ namespace Capstone.Controllers
         // GET: GiftIdeas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.GiftIdeas.Include(g => g.BookType).Include(g => g.ToyType).Include(g => g.ClothesType);
+            var user = await GetCurrentUserAsync();
+            var applicationDbContext = _context.GiftIdeas.Include(g => g.BookType).Include(g => g.ToyType).Include(g => g.ClothesType).Where(c => c.UserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
