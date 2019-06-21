@@ -215,12 +215,6 @@ namespace Capstone.Migrations
                 {
                     table.PrimaryKey("PK_Book", x => x.BookId);
                     table.ForeignKey(
-                        name: "FK_Book_BookType_BookTypeId",
-                        column: x => x.BookTypeId,
-                        principalTable: "BookType",
-                        principalColumn: "BookTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Book_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
@@ -298,7 +292,7 @@ namespace Capstone.Migrations
                     BookTypeId = table.Column<int>(nullable: true),
                     ToyTypeId = table.Column<int>(nullable: true),
                     Size = table.Column<string>(maxLength: 20, nullable: true),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Description = table.Column<string>(maxLength: 255, nullable: true),
                     ImagePath = table.Column<string>(nullable: true),
                     ToyId = table.Column<int>(nullable: true),
                     BookId = table.Column<int>(nullable: true),
@@ -355,7 +349,7 @@ namespace Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName", "StreetAddress" },
-                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "3c89e7cb-ae7b-4881-831b-83f301aa941f", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEEsHR1KP5Bs7M0xPYCio/5/j8dqWtjDWS0oyDh/tR/ohBDp0WpDP82pxBKRv3od6bg==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
+                values: new object[] { "4f555f8c-d5db-43b5-836c-ffffffffffff", 0, "eb16a290-6c49-4bba-8889-9b4909b2b8ad", "ApplicationUser", "niall@niall.com", true, false, null, "NIALL@NIALL.COM", "NIALL@NIALL.COM", "AQAAAAEAACcQAAAAEOCR3fNzhYrRIGWn9M3Tvf1AN2oebMEZg9+0EQWLYLoJR3mx3QCkSO0iAAVWIDXo3A==", null, false, "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa", false, "niall@niall.com", "Niall", "Fraser", "123 Infinity Way" });
 
             migrationBuilder.InsertData(
                 table: "BookType",

@@ -4,33 +4,48 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h3>Items in Your Home:</h3>
-                
-    <h4>
-        <a asp-controller="Clothes" asp-action="Index" asp-route-id="@Model.Clothes">@Html.DisplayNameFor(Model => Model.Clothes)</a>
-    </h4>
-        @foreach (var item in Model.Clothes)
-        {
-                    @Html.DisplayFor(modelItem => item.Description)<br />
-        }
+        <h6>Items in Your Home:</h6>
+    <div class="wrapper">
 
-    <h4>
-        <a asp-controller="Books" asp-action="Index" asp-route-id="@Model.Books">@Html.DisplayNameFor(Model => Model.Books)</a>
-    </h4>
-        @foreach (var item in Model.Books)
-        {
 
-                    @Html.DisplayFor(modelItem => item.Title) <br />
 
-        }
 
-    <h4>
-        <a asp-controller="Toys" asp-action="Index" asp-route-id="@Model.Toys">@Html.DisplayNameFor(Model => Model.Toys)</a>
-      </h4>
+        <div class="card-container">
+            <div class="cardClothes" style="width: 18rem;">
+                <img class="card-img-top" src="~/images/clothes-children-on-hangers-room-260nw-391384774.webp" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><a asp-controller="Clothes" asp-action="Index" asp-route-id="@Model.Clothes">@Html.DisplayNameFor(Model => Model.Clothes)</a></h5>
+                    @foreach (var item in Model.Clothes)
+                    {
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)<br /></p>
+                    }
+                </div>
+            </div>
+        </div>
 
-    @foreach (var item in Model.Toys)
-    {
+        <div class="card-container">
+            <div class="cardBooks" style="width: 18rem;">
+                <img class="card-img-top" src="~/images/s-l300.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><a asp-controller="Books" asp-action="Index" asp-route-id="@Model.Books">@Html.DisplayNameFor(Model => Model.Books)</a></h5>
+                    @foreach (var item in Model.Books)
+                    {
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Title)<br /></p>
+                    }
+                </div>
+            </div>
+        </div>
 
-        @Html.DisplayFor(modelItem => item.Description)<br />
-
-    }
+        <div class="card-container">
+            <div class="cardToys" style="width: 18rem;">
+                <img class="card-img-top" src="~/images/truck.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><a asp-controller="Toys" asp-action="Index" asp-route-id="@Model.Toys">@Html.DisplayNameFor(Model => Model.Toys)</a></h5>
+                    @foreach (var item in Model.Toys)
+                    {
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)<br /></p>
+                    }
+                </div>
+            </div>
+        </div>
+                </div>

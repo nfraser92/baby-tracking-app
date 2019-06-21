@@ -28,7 +28,6 @@ namespace Capstone.Models
         [StringLength(20, ErrorMessage = "Please shorten the Size to 20 characters")]
         public string Size { get; set; }
 
-        [Required]
         [StringLength(255)]
         public string Description { get; set; }
 

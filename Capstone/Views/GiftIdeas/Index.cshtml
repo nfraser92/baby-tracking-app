@@ -8,28 +8,22 @@
 <h4>Gift Ideas</h4>
 
 <p>
-    <a asp-action="Create" class="btn btn-secondary">Add an Idea!</a>
+    <a asp-action="CreateBook" class="btn btn-secondary">Add an Idea!</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ToyType)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.BookType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClothesType)
+                @Html.DisplayNameFor(model => model.Book.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Size)
+                @Html.DisplayNameFor(model => model.Book.Author)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th></th>
         </tr>
@@ -39,22 +33,16 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ToyType.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.BookType.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClothesType.Description)
+                @Html.DisplayFor(modelItem => item.Book.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Size)
+                @Html.DisplayFor(modelItem => item.Book.Author)
             </td>
             <td>
                 <img src="/images/@item.ImagePath" class="imageDisplay" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit"></i></a> |

@@ -57,13 +57,11 @@ namespace Capstone.Controllers
         }
 
         // GET: GiftIdeas/Create
-        public IActionResult Create()
+        public IActionResult CreateBook()
         {
             GiftUploadViewModel model = new GiftUploadViewModel();
             model.GiftIdeas = new GiftIdeas();
             ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description");
-            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description");
-            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description");
             return View(model);
         }
 
@@ -72,7 +70,7 @@ namespace Capstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GiftUploadViewModel model)
+        public async Task<IActionResult> CreateBook(GiftUploadViewModel model)
         {
             ModelState.Remove("UserId");
 
@@ -83,17 +81,16 @@ namespace Capstone.Controllers
 
             if (ModelState.IsValid)
             {
-                model.GiftIdeas.User = user;
-                model.GiftIdeas.UserId = user.Id;
+                model.GiftIdeas.Book.User = user;
+                model.GiftIdeas.Book.UserId = user.Id;
                 await UploadImage(model.ImageFile);
-                model.GiftIdeas.ImagePath = model.ImageFile.FileName;
-                _context.Add(model.GiftIdeas);
+                model.GiftIdeas.Book.ImagePath = model.ImageFile.FileName;
+                _context.Add(model.GiftIdeas.Book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BookTypeId"] = new SelectList(_context.BookType, "BookTypeId", "Description", model.GiftIdeas.BookTypeId);
-            ViewData["ToyTypeId"] = new SelectList(_context.ToyType, "ToyTypeId", "Description", model.GiftIdeas.ToyTypeId);
-            ViewData["ClothesTypeId"] = new SelectList(_context.ClothesType, "ClothesTypeId", "Description", model.GiftIdeas.ClothesType);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", model.GiftIdeas.Book.UserId);
             return View(model);
         }
 

@@ -79,7 +79,7 @@ namespace Capstone.Controllers
 
             model.Toys = toys.ToList();
 
-            var clothes = _context.Clothes.Where(c => c.Color.Contains(SearchString) || (c.ClothesType.Description.Contains(SearchString)));
+            var clothes = _context.Clothes.Where(c => c.Color.Contains(SearchString) || (c.ClothesType.Description.Contains(SearchString)) || (c.Size.Contains(SearchString)));
 
             model.Clothing = clothes.ToList();
 

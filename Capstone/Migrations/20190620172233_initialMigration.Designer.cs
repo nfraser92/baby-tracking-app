@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190619200938_initialMigration")]
+    [Migration("20190620172233_initialMigration")]
     partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,7 +210,6 @@ namespace Capstone.Migrations
                     b.Property<int?>("ClothesTypeId");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(255);
 
                     b.Property<string>("ImagePath");
@@ -495,13 +494,13 @@ namespace Capstone.Migrations
                         {
                             Id = "4f555f8c-d5db-43b5-836c-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c89e7cb-ae7b-4881-831b-83f301aa941f",
+                            ConcurrencyStamp = "eb16a290-6c49-4bba-8889-9b4909b2b8ad",
                             Email = "niall@niall.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NIALL@NIALL.COM",
                             NormalizedUserName = "NIALL@NIALL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEsHR1KP5Bs7M0xPYCio/5/j8dqWtjDWS0oyDh/tR/ohBDp0WpDP82pxBKRv3od6bg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOCR3fNzhYrRIGWn9M3Tvf1AN2oebMEZg9+0EQWLYLoJR3mx3QCkSO0iAAVWIDXo3A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "4f555f8c-d5db-43b5-836c-aaaaaaaaaaaa",
                             TwoFactorEnabled = false,

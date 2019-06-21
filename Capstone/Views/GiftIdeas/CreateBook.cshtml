@@ -1,0 +1,52 @@
+﻿@model Capstone.Models.ViewModels.Gift_Ideas.GiftUploadViewModel
+
+@{
+    ViewData["Title"] = "CreateBook";
+}
+
+
+<h4>GiftIdeas</h4>
+<hr />
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="GiftIdeas" asp-action="CreateBook">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GiftIdeas.BookType" class="control-label"></label>
+                <select asp-for="GiftIdeas.BookTypeId" class="form-control" asp-items="ViewBag.BookTypeId"><option value="">Choose a Categoty</option></select>
+                <span asp-validation-for="GiftIdeas.BookTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiftIdeas.Book.Title" class="control-label"></label>
+                <input asp-for="GiftIdeas.Book.Title" class="form-control" />
+                <span asp-validation-for="GiftIdeas.Book.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" type="file"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiftIdeas.Book.Author" class="control-label"></label>
+                <input asp-for="GiftIdeas.Book.Author" class="form-control" />
+                <span asp-validation-for="GiftIdeas.Book.Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiftIdeas.Book.Quantity" class="control-label"></label>
+                <input asp-for="GiftIdeas.Book.Quantity" class="form-control" />
+                <span asp-validation-for="GiftIdeas.Book.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GiftIdeas.Book.IsOutgrown" /> @Html.DisplayNameFor(model => model.GiftIdeas.Book.IsOutgrown)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
